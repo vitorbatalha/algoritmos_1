@@ -19,14 +19,14 @@ fgets(nome, sizeof nome, stdin);
 nome[strcspn(nome, "\n")] = '\0';
 
 //lendo notas;
-for (int i = 1; i < 4; i++) {
+for (int i = 1; i < 6; i++) {
     printf("Digite a sua nota na %d° prova.\n", i);
     scanf("%f", &nota);
     media += nota;
 }
 
 //dividindo a soma das notas pela quantidade de provas;
-media = media/3;
+media = media/5;
 
 //resultado final'
 printf("%s, sua nota final é: %.1f.\n", nome, media);
