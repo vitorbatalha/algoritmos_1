@@ -23,20 +23,25 @@ int main()
     // declarando variáveis: media (para armazenar a média das notas), nota (para armazenar cada nota individualmente) e nome (para armazenar o nome do aluno).
     // media e nota são do tipo float (números com ponto decimal) e nome é do tipo string (cadeia de caracteres).
 
-    float media, nota;
-    string nome;
+    float media, nota, maior_nota;
+    string nome, nome_maior_nota;
+    
+    maior_nota = 0;
 
     // inicializando variáveis:
     // Vamos iniciar a variável media com 0, para garantir que a soma das notas comece do zero.
     // Caso não façamos isso, a variável pode conter um valor lixo (um valor aleatório que estava na memória) e isso afetaria o cálculo da média.
 
+    for (int i = 1; i < 4; i++) 
+    {
+    
     media = 0;
 
     // lendo nome do aluno;
     // utilizamos a função cout para exibir uma mensagem no terminal, pedindo ao usuário para digitar seu nome.
     // Em seguida, usamos a função cin para ler a entrada do usuário e armazená-la na variável nome.
 
-    cout << "Digite seu primeiro nome." << endl;
+    cout << "Aluno " << i << ", digite seu primeiro nome." << endl;
     cin >> nome;
 
     // A função while é um loop, que repete o bloco de código dentro dela enquanto a condição for verdadeira.
@@ -77,6 +82,12 @@ int main()
             {
                 // Se a nota for válida, adicionamos essa nota à variável media (que está sendo usada para acumular a soma das notas), e o loop se repete.
                 media += nota;
+                if (nota > maior_nota)
+                {
+                    maior_nota = nota;
+                    nome_maior_nota = nome;
+                }
+                
             }
             else
             {
@@ -106,7 +117,7 @@ int main()
     // resultado final
     // Finalmente, exibimos a média final do aluno usando cout.
 
-    cout << nome << ", sua nota final eh: " << media << endl;
+    cout << nome << ", sua media final eh: " << media << endl;
 
     // checando se está aprovado
     // Usamos outra estrutura condicional if para verificar se a média é maior ou igual a 7.
@@ -121,5 +132,8 @@ int main()
     {
         cout << "Sinto muito, voce foi reprovado." << endl;
     }
+    }
+    cout << "A maior nota foi de " << nome_maior_nota << ", que tirou " << maior_nota << endl;
+
     return 0;
 }
