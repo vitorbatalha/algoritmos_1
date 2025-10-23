@@ -18,83 +18,63 @@ using namespace std;
 
 // Abaixo, a nossa função principal "main", onde o programa começa a ser executado.
 
-int main()
+typedef struct {
+    string nome;
+    float nota;
+    float media = 0;
+    float maior_nota = 0;
+} Aluno;
+
+void static limpar_entrada () 
 {
-    // declarando variáveis: media (para armazenar a média das notas), nota (para armazenar cada nota individualmente) e nome (para armazenar o nome do aluno).
-    // media e nota são do tipo float (números com ponto decimal) e nome é do tipo string (cadeia de caracteres).
+    cin.clear();
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
 
-    float media, nota, maior_nota;
-    string nome, nome_maior_nota;
-    
-    maior_nota = 0;
-
-    // inicializando variáveis:
-    // Vamos iniciar a variável media com 0, para garantir que a soma das notas comece do zero.
-    // Caso não façamos isso, a variável pode conter um valor lixo (um valor aleatório que estava na memória) e isso afetaria o cálculo da média.
-
-    for (int i = 1; i < 4; i++) 
-    {
-    
-    media = 0;
-
-    // lendo nome do aluno;
-    // utilizamos a função cout para exibir uma mensagem no terminal, pedindo ao usuário para digitar seu nome.
-    // Em seguida, usamos a função cin para ler a entrada do usuário e armazená-la na variável nome.
-
-    cout << "Aluno " << i << ", digite seu primeiro nome." << endl;
-    cin >> nome;
-
-    // A função while é um loop, que repete o bloco de código dentro dela enquanto a condição for verdadeira.
-    // Nesse caso, a condição é que o tamanho do nome seja maior que o valor definido em TAMANHO_MAX_PRIMEIRO_NOME (15 caracteres).
-    // Ou seja, enquanto o nome for maior que 15 caracteres, o programa continuará pedindo para o usuário digitar um nome válido.
-
-    while (nome.size() > TAMANHO_MAX_PRIMEIRO_NOME)
+Aluno ler_nome (Aluno a)
+{
+     cout << "Por favor, digite seu primeiro nome." << endl;
+     cin >> a.nome;
+     while (a.nome.size() > TAMANHO_MAX_PRIMEIRO_NOME)
     {
         // Se o nome for muito grande, exibimos uma mensagem de erro e pedimos para o usuário digitar novamente.
         // As funções cin.clear() e cin.ignore() são usadas para limpar o estado de erro do cin e ignorar qualquer entrada inválida que possa ter sido digitada anteriormente.
 
         cout << "Por favor, digite um nome com ate " << TAMANHO_MAX_PRIMEIRO_NOME << " caracteres." << endl;
-        cin.clear();
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        limpar_entrada();
 
         // Agora que limpamos a entrada, tentamos ler novamente a entrada.
 
-        cin >> nome;
+        cin >> a.nome;
     }
+    return a;
+}
 
-    // lendo notas:
-    // Aqui, usamos um loop for para repetir o processo de leitura das notas.
-    // O loop for funciona da seguinte maneira: começamos com i igual a 1, e enquanto i for menor que 6, repetimos o bloco de código dentro do loop.
-    // A cada loop, incrementamos i em 1 (i++ é o mesmo que i = i + 1).
-    // Isso significa que o loop será executado 5 vezes (para i = 1, 2, 3, 4 e 5), permitindo que o usuário digite 5 notas.
-
-    for (int i = 1; i < 6; i++)
-    {
-        // Dentro do loop, pedimos para o usuário digitar a nota da prova atual (usando o valor de i para indicar qual prova é).
-
-        cout << "Digite a sua nota na " << i << " prova." << endl;
+Aluno ler_notas (int quantidade_notas, Aluno a)
+{ 
+     for (int j = 0; j < quantidade_notas; j++)
+        {
+        cout << "Digite a sua nota na " << j+1 << " prova." << endl;
 
         // Aqui, usamos uma estrutura condicional if para verificar se a entrada do usuário é válida. 
-        if (cin >> nota)
+        if (cin >> a.nota)
         {
             // Se a entrada for um número, verificamos se a nota está entre 0 e 10.
-            if (nota >= 0 && nota <= 10)
+            if (a.nota >= 0 && a.nota <= 10)
             {
                 // Se a nota for válida, adicionamos essa nota à variável media (que está sendo usada para acumular a soma das notas), e o loop se repete.
-                media += nota;
-                if (nota > maior_nota)
+                a.media += a.nota;
+                if (a.nota > a.maior_nota)
                 {
-                    maior_nota = nota;
-                    nome_maior_nota = nome;
+                    a.maior_nota = a.nota;
                 }
-                
             }
             else
             {
                 // Se a nota não estiver entre 0 e 10, exibimos uma mensagem de erro e pedimos para o usuário digitar novamente.
                 // Também decrementamos i em 1 (i--) para garantir que o loop repita a iteração atual, permitindo que o usuário digite a nota correta para a mesma prova.
                 cout << "Escreva um numero entre 0 e 10." << endl;
-                i--;
+                j--;
             }
         }
         else
@@ -103,37 +83,67 @@ int main()
             // Novamente, decrementamos i em 1 para repetir a iteração atual.
             // Também usamos cin.clear() e cin.ignore() para limpar o estado de erro do cin e ignorar a entrada inválida.
             cout << "Por favor, digite um numero." << endl;
-            cin.clear();
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            i--;
+            limpar_entrada();
+            j--;
+        }
+    }
+    a.media = a.media/quantidade_notas;
+    return a;
+}
+
+static void imprimir_resultados (Aluno a)
+{
+    cout << a.nome << ", sua média foi " << a.media << ", e sua maior nota foi " << a.maior_nota << endl;
+}
+
+int main()
+{
+    int quantidade_alunos;
+    int quantidade_notas;
+    float maior_nota = 0;
+
+    
+    cout << "Por favor, escreva o número de alunos." << endl;
+    cin >> quantidade_alunos;
+    while (cin.fail())
+    {
+        limpar_entrada();
+        cout << "Por favor, escreva um numero valido." << endl;
+    }
+    
+    cout << "Por favor, escreva o número de notas." << endl;
+    cin >> quantidade_notas;
+    while (cin.fail())
+    {
+        limpar_entrada();
+        cout << "Por favor, escreva um numero valido." << endl;
+    }
+    
+    Aluno a[quantidade_alunos];
+    for (int i = 0; i < quantidade_alunos; i++)
+    {
+        a[i] = ler_nome(a[i]);
+        a[i] = ler_notas(quantidade_notas, a[i]);
+    }
+
+    for (int k = 0; k < quantidade_alunos; k++)
+    {
+        cout << "-----------------------------" << endl;
+        imprimir_resultados(a[k]);
+        if (maior_nota < a[k].maior_nota)
+        {
+            maior_nota = a[k].maior_nota;
         }
     }
 
-    // dividindo a soma das notas pela quantidade de provas;
-    // Após o loop, a variável media contém a soma das 5 notas. Para calcular a média, dividimos essa soma por 5.
-
-    media = media / 5;
-
-    // resultado final
-    // Finalmente, exibimos a média final do aluno usando cout.
-
-    cout << nome << ", sua media final eh: " << media << endl;
-
-    // checando se está aprovado
-    // Usamos outra estrutura condicional if para verificar se a média é maior ou igual a 7.
-    // Se for, exibimos uma mensagem parabenizando o aluno pela aprovação.
-    // Se a média for menor que 7, exibimos uma mensagem informando que o aluno foi reprovado.
-    
-    if (media >= 7)
+    cout << "-----------------------------" << endl;
+    cout << "Quem tirou a maior nota (" << maior_nota << ") foi:" << endl;
+    for (int k = 0; k < quantidade_alunos; k++)
     {
-        cout << "Parabens, voce foi aprovado!" << endl;
+        if (a[k].maior_nota == maior_nota)
+        {
+            cout << a[k].nome << endl;
+        }
     }
-    else
-    {
-        cout << "Sinto muito, voce foi reprovado." << endl;
-    }
-    }
-    cout << "A maior nota foi de " << nome_maior_nota << ", que tirou " << maior_nota << endl;
-
     return 0;
 }
