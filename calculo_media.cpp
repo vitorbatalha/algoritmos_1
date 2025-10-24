@@ -14,6 +14,7 @@ typedef struct {
     float* nota;
     float media;
     float maior_nota;
+    string status; 
 } Aluno;
 
 void static limpar_entrada () 
@@ -45,14 +46,14 @@ Aluno ler_notas (int quantidade_notas, Aluno a)
     {
         cout << "Digite a sua nota na " << j+1 << "ª prova." << endl;
 
-        if (cin >> a.notas[j])
+        if (cin >> a.nota[j])
         {
-            if (a.notas[j] >= 0 && a.notas[j] <= 10)
+            if (a.nota[j] >= 0 && a.nota[j] <= 10)
             {
-                a.media += a.notas[j];
-                if (a.notas[j] > a.maior_nota)
+                a.media += a.nota[j];
+                if (a.nota[j] > a.maior_nota)
                 {
-                    a.maior_nota = a.notas[j];
+                    a.maior_nota = a.nota[j];
                 }
             }
             else
@@ -72,9 +73,31 @@ Aluno ler_notas (int quantidade_notas, Aluno a)
     return a;
 }
 
-static void imprimir_resultados (Aluno a)
+Aluno checar_status(Aluno a)
 {
-    cout << a.nome << ", sua média foi " << a.media << ", e sua maior nota foi " << a.maior_nota << endl;
+    if (a.media >= 7.0)
+        a.status = "Aprovado";
+    else
+        a.status = "Reprovado";
+
+    return a;
+}
+
+static void imprimir_resultados (Aluno a, int quantidade_notas)
+{
+    cout << "-------------------------------" << endl;
+    cout << "Aluno: " << a.nome << endl;
+    cout << "Notas: ";
+    for (int i = 0; i < quantidade_notas; i++)
+    {
+        cout << a.nota[i];
+        if (i < quantidade_notas - 1) cout << " | ";
+    }
+    cout << endl;
+
+    cout << "Maior nota: " << a.maior_nota << endl;
+    cout << "Média: " << a.media << endl;
+    cout << "Status: " << a.status << endl;
 }
 
 int ler_quantidade_alunos()
@@ -121,36 +144,23 @@ int main()
 {
     int quantidade_alunos;
     int quantidade_notas;
-    float maior_nota = 0;
 
     quantidade_alunos = ler_quantidade_alunos();    
     quantidade_notas = ler_quantidade_notas();
     
     Aluno a[quantidade_alunos];
+
     for (int i = 0; i < quantidade_alunos; i++)
     {
         a[i] = ler_nome(a[i]);
         a[i] = ler_notas(quantidade_notas, a[i]);
+        a[i] = checar_status(a[i]);
     }
 
-    for (int k = 0; k < quantidade_alunos; k++)
-    {
-        cout << "-----------------------------" << endl;
-        imprimir_resultados(a[k]);
-        if (maior_nota < a[k].maior_nota)
-        {
-            maior_nota = a[k].maior_nota;
-        }
-    }
-
-    cout << "-----------------------------" << endl;
-    cout << "Quem tirou a maior nota (" << maior_nota << ") foi:" << endl;
-    for (int k = 0; k < quantidade_alunos; k++)
-    {
-        if (a[k].maior_nota == maior_nota)
-        {
-            cout << a[k].nome << endl;
-        }
-    }
+for (int k = 0; k < quantidade_alunos; k++)
+{
+    imprimir_resultados(a[k], quantidade_notas);
     return 0;
+}
+
 }
