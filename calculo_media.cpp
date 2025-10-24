@@ -1,8 +1,3 @@
-/* Código feito para a disciplina de Algoritmos, de segundo período no curso de Engenharia de Computação na Multivix - Vila Velha.
-    Data de entrega: 01/10/2025
-    Objetivo: Ler o nome e as notas de um aluno, calcular a média e informar se ele foi aprovado ou reprovado.
-*/
-
 #include <iostream>
 #include <limits>
 #include <string>
@@ -25,7 +20,7 @@ void static limpar_entrada ()
 
 Aluno ler_nome (Aluno a)
 {
-     cout << "Por favor, digite seu primeiro nome." << endl;
+     cout << "Por favor, digite o nome do aluno." << endl;
      cin >> a.nome;
      while (a.nome.size() > TAMANHO_MAX_PRIMEIRO_NOME)
     {
@@ -44,7 +39,7 @@ Aluno ler_notas (int quantidade_notas, Aluno a)
 
     for (int j = 0; j < quantidade_notas; j++)
     {
-        cout << "Digite a sua nota na " << j+1 << "ª prova." << endl;
+        cout << "Digite a nota do aluno na " << j+1 << "ª prova." << endl;
 
         if (cin >> a.nota[j])
         {
@@ -144,7 +139,7 @@ int main()
 {
     int quantidade_alunos;
     int quantidade_notas;
-
+c
     quantidade_alunos = ler_quantidade_alunos();    
     quantidade_notas = ler_quantidade_notas();
     
