@@ -155,7 +155,8 @@ c
 for (int k = 0; k < quantidade_alunos; k++)
 {
     imprimir_resultados(a[k], quantidade_notas);
-    return 0;
 }
+
+    return 0;
 
 }
