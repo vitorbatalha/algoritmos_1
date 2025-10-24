@@ -95,12 +95,44 @@ static void imprimir_resultados(Aluno a, int quantidade_notas)
     cout << endl;
 
     cout << "Maior nota:  " << fixed << setprecision(1) << a.maior_nota << endl;
-    cout << "Média:      " << fixed << setprecision(2) << a.media << endl;
+    cout << "Média:       " << fixed << setprecision(2) << a.media << endl;
     cout << "Status:      " 
          << (a.status == "Aprovado" ? "\033[32mAprovado\033[0m" : "\033[31mReprovado\033[0m")
          << endl;
     cout << "======================================\n" << endl;
 }
+
+void imprimir_melhores_alunos(Aluno* alunos, int quantidade_alunos) 
+{
+
+    float maior_geral = alunos[0].maior_nota;
+
+    for (int i = 1; i < quantidade_alunos; i++) {
+        if (alunos[i].maior_nota > maior_geral) {
+            maior_geral = alunos[i].maior_nota;
+        }
+    }
+
+    string magenta = "\033[35m";
+    string reset = "\033[0m";
+
+    cout << magenta;
+    cout << "\n================== MELHORES ALUNOS ==================\n";
+    cout << setw(20) << "Nome do Aluno      " << setw(10) << "Maior Nota" << endl;
+    cout << "----------------------------------------------------\n";
+
+    for (int i = 0; i < quantidade_alunos; i++) {
+        if (alunos[i].maior_nota == maior_geral) {
+            cout << setw(20) << alunos[i].nome
+                 << setw(10) << fixed << setprecision(2)
+                 << alunos[i].maior_nota << endl;
+        }
+    }
+
+    cout << "====================================================\n";
+    cout << reset; 
+}
+
 
 int ler_quantidade_alunos()
 {
@@ -159,10 +191,12 @@ int main()
         a[i] = checar_status(a[i]);
     }
 
-for (int k = 0; k < quantidade_alunos; k++)
-{
-    imprimir_resultados(a[k], quantidade_notas);
-}
+    for (int j = 0; j < quantidade_alunos; j++)
+    {
+        imprimir_resultados(a[j], quantidade_notas);
+    }
+
+    imprimir_melhores_alunos(a, quantidade_alunos);
 
     return 0;
 
