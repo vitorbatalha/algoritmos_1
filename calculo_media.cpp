@@ -3,26 +3,17 @@
     Objetivo: Ler o nome e as notas de um aluno, calcular a média e informar se ele foi aprovado ou reprovado.
 */
 
-// Abaixo, os includes: bibliotecas necessárias para o funcionamento do código. 
-// Bibliotecas são conjuntos de funções prontas, que facilitam a programação.
-// A biblioteca <iostream> é usada para entrada e saída de dados.
-//  <limits> para manipulação de limites numéricos (que permite limpar a entrada quando o usuário digitar algo errado), e <string> para trabalhar com strings.
-// O comando "using namespace std;" é usado para evitar a necessidade de prefixar os elementos da biblioteca padrão com "std::". Assim, posso escrever "cout" em vez de "std::cout".
-// A diretiva "#define TAMANHO_MAX_PRIMEIRO_NOME 15" define uma constante que limita o tamanho máximo do nome do aluno a 15 caracteres. É mais fácil alterar esse valor aqui do que em várias partes do código.
-
 #include <iostream>
 #include <limits>
 #include <string>
 using namespace std;
 #define TAMANHO_MAX_PRIMEIRO_NOME 15
 
-// Abaixo, a nossa função principal "main", onde o programa começa a ser executado.
-
 typedef struct {
     string nome;
-    float nota;
-    float media = 0;
-    float maior_nota = 0;
+    float* nota;
+    float media;
+    float maior_nota;
 } Aluno;
 
 void static limpar_entrada () 
@@ -37,14 +28,8 @@ Aluno ler_nome (Aluno a)
      cin >> a.nome;
      while (a.nome.size() > TAMANHO_MAX_PRIMEIRO_NOME)
     {
-        // Se o nome for muito grande, exibimos uma mensagem de erro e pedimos para o usuário digitar novamente.
-        // As funções cin.clear() e cin.ignore() são usadas para limpar o estado de erro do cin e ignorar qualquer entrada inválida que possa ter sido digitada anteriormente.
-
         cout << "Por favor, digite um nome com ate " << TAMANHO_MAX_PRIMEIRO_NOME << " caracteres." << endl;
         limpar_entrada();
-
-        // Agora que limpamos a entrada, tentamos ler novamente a entrada.
-
         cin >> a.nome;
     }
     return a;
@@ -52,37 +37,33 @@ Aluno ler_nome (Aluno a)
 
 Aluno ler_notas (int quantidade_notas, Aluno a)
 { 
-     for (int j = 0; j < quantidade_notas; j++)
-        {
-        cout << "Digite a sua nota na " << j+1 << " prova." << endl;
+    a.nota = new float[quantidade_notas];
+    a.media = 0;
+    a.maior_nota = 0;
 
-        // Aqui, usamos uma estrutura condicional if para verificar se a entrada do usuário é válida. 
-        if (cin >> a.nota)
+    for (int j = 0; j < quantidade_notas; j++)
+    {
+        cout << "Digite a sua nota na " << j+1 << "ª prova." << endl;
+
+        if (cin >> a.notas[j])
         {
-            // Se a entrada for um número, verificamos se a nota está entre 0 e 10.
-            if (a.nota >= 0 && a.nota <= 10)
+            if (a.notas[j] >= 0 && a.notas[j] <= 10)
             {
-                // Se a nota for válida, adicionamos essa nota à variável media (que está sendo usada para acumular a soma das notas), e o loop se repete.
-                a.media += a.nota;
-                if (a.nota > a.maior_nota)
+                a.media += a.notas[j];
+                if (a.notas[j] > a.maior_nota)
                 {
-                    a.maior_nota = a.nota;
+                    a.maior_nota = a.notas[j];
                 }
             }
             else
             {
-                // Se a nota não estiver entre 0 e 10, exibimos uma mensagem de erro e pedimos para o usuário digitar novamente.
-                // Também decrementamos i em 1 (i--) para garantir que o loop repita a iteração atual, permitindo que o usuário digite a nota correta para a mesma prova.
-                cout << "Escreva um numero entre 0 e 10." << endl;
+                cout << "Escreva um número entre 0 e 10." << endl;
                 j--;
             }
         }
         else
         {
-            // Se a entrada não for um número (por exemplo, se o usuário digitar uma letra), exibimos uma mensagem de erro e pedimos para o usuário digitar novamente.
-            // Novamente, decrementamos i em 1 para repetir a iteração atual.
-            // Também usamos cin.clear() e cin.ignore() para limpar o estado de erro do cin e ignorar a entrada inválida.
-            cout << "Por favor, digite um numero." << endl;
+            cout << "Por favor, digite um número." << endl;
             limpar_entrada();
             j--;
         }
@@ -96,28 +77,54 @@ static void imprimir_resultados (Aluno a)
     cout << a.nome << ", sua média foi " << a.media << ", e sua maior nota foi " << a.maior_nota << endl;
 }
 
+int ler_quantidade_alunos()
+{
+    int quantidade;
+
+    while (true)
+    {
+        cout << "Por favor, escreva o número de alunos." << endl;
+        
+        if (cin >> quantidade && quantidade > 0)
+        {
+            return quantidade; 
+        }
+        else
+        {
+            cout << "Por favor, escreva um número inteiro positivo." << endl;
+            limpar_entrada(); 
+        }
+    }
+}
+
+int ler_quantidade_notas()
+{
+    int quantidade;
+
+    while (true)
+    {
+        cout << "Por favor, escreva o número de notas." << endl;
+        
+        if (cin >> quantidade && quantidade > 0)
+        {
+            return quantidade; 
+        }
+        else
+        {
+            cout << "Por favor, escreva um número inteiro positivo." << endl;
+            limpar_entrada(); 
+        }
+    }
+}
+
 int main()
 {
     int quantidade_alunos;
     int quantidade_notas;
     float maior_nota = 0;
 
-    
-    cout << "Por favor, escreva o número de alunos." << endl;
-    cin >> quantidade_alunos;
-    while (cin.fail())
-    {
-        limpar_entrada();
-        cout << "Por favor, escreva um numero valido." << endl;
-    }
-    
-    cout << "Por favor, escreva o número de notas." << endl;
-    cin >> quantidade_notas;
-    while (cin.fail())
-    {
-        limpar_entrada();
-        cout << "Por favor, escreva um numero valido." << endl;
-    }
+    quantidade_alunos = ler_quantidade_alunos();    
+    quantidade_notas = ler_quantidade_notas();
     
     Aluno a[quantidade_alunos];
     for (int i = 0; i < quantidade_alunos; i++)
