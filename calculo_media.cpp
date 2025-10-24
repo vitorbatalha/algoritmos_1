@@ -1,6 +1,7 @@
 #include <iostream>
 #include <limits>
 #include <string>
+#include <iomanip>
 using namespace std;
 #define TAMANHO_MAX_PRIMEIRO_NOME 15
 
@@ -78,21 +79,27 @@ Aluno checar_status(Aluno a)
     return a;
 }
 
-static void imprimir_resultados (Aluno a, int quantidade_notas)
+static void imprimir_resultados(Aluno a, int quantidade_notas)
 {
-    cout << "-------------------------------" << endl;
+    cout << "\n======================================" << endl;
     cout << "Aluno: " << a.nome << endl;
-    cout << "Notas: ";
+    cout << "--------------------------------------" << endl;
+    cout << "Notas:       ";
+            
+
     for (int i = 0; i < quantidade_notas; i++)
     {
-        cout << a.nota[i];
+        cout << fixed << setprecision(1) << a.nota[i];
         if (i < quantidade_notas - 1) cout << " | ";
     }
     cout << endl;
 
-    cout << "Maior nota: " << a.maior_nota << endl;
-    cout << "Média: " << a.media << endl;
-    cout << "Status: " << a.status << endl;
+    cout << "Maior nota:  " << fixed << setprecision(1) << a.maior_nota << endl;
+    cout << "Média:      " << fixed << setprecision(2) << a.media << endl;
+    cout << "Status:      " 
+         << (a.status == "Aprovado" ? "\033[32mAprovado\033[0m" : "\033[31mReprovado\033[0m")
+         << endl;
+    cout << "======================================\n" << endl;
 }
 
 int ler_quantidade_alunos()
@@ -139,7 +146,7 @@ int main()
 {
     int quantidade_alunos;
     int quantidade_notas;
-c
+
     quantidade_alunos = ler_quantidade_alunos();    
     quantidade_notas = ler_quantidade_notas();
     
