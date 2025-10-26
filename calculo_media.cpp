@@ -81,6 +81,7 @@ Aluno checar_status(Aluno a)
 
 static void imprimir_resultados(Aluno a, int quantidade_notas)
 {
+
     cout << "\n======================================" << endl;
     cout << "Aluno: " << a.nome << endl;
     cout << "--------------------------------------" << endl;
@@ -117,14 +118,14 @@ void imprimir_melhores_alunos(Aluno* alunos, int quantidade_alunos)
     string reset = "\033[0m";
 
     cout << magenta;
-    cout << "\n================== MELHORES ALUNOS ==================\n";
+    cout << "\n=============== MAIORES NOTA DA TURMA ===============\n";
     cout << setw(20) << "Nome do Aluno      " << setw(10) << "Maior Nota" << endl;
     cout << "----------------------------------------------------\n";
 
     for (int i = 0; i < quantidade_alunos; i++) {
         if (alunos[i].maior_nota == maior_geral) {
-            cout << setw(20) << alunos[i].nome
-                 << setw(10) << fixed << setprecision(2)
+            cout << setw(07) << alunos[i].nome
+                 << setw(17) << fixed << setprecision(2)
                  << alunos[i].maior_nota << endl;
         }
     }
@@ -132,7 +133,6 @@ void imprimir_melhores_alunos(Aluno* alunos, int quantidade_alunos)
     cout << "====================================================\n";
     cout << reset; 
 }
-
 
 int ler_quantidade_alunos()
 {
