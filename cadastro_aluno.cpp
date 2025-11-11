@@ -91,6 +91,20 @@ string cadastrar_curso(Aluno a)
     return a.curso;
 }
 
+string cadastrar_email(Aluno a)
+{
+    cout << "Digite o email do aluno: " << endl;
+    if (cin >> a.email)
+    {
+        return a.email;
+    }
+    else
+    {
+        cout << "Entrada inválida. Por favor, digite novamente o email do aluno: " << endl;
+        limpar_entrada();
+    }
+    return a.email;
+}
 int main () 
 {
     cout << "Cadastro de Aluno" << endl;
