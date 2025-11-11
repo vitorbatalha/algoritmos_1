@@ -52,14 +52,14 @@ Data cadastrar_data_nascimento(Aluno a)
     }
 }
 
-Aluno cadastrar__nome_aluno(Aluno a)
+string cadastrar_nome(Aluno a)
 {
     cout << "Digite o nome do aluno: " << endl;
     if ((cin >> a.nome))
     {
         if (a.nome.size() > TAMANHO_MAX_NOME)
         {
-            return a;
+            return a.nome;
         }
         else
         {
@@ -73,7 +73,22 @@ Aluno cadastrar__nome_aluno(Aluno a)
         limpar_entrada();
     }
     
-    return a;
+    return a.nome;
+}
+
+string cadastrar_curso(Aluno a)
+{
+    cout << "Digite o curso do aluno: " << endl;
+    if (cin >> a.curso)
+    {
+        return a.curso;
+    }
+    else
+    {
+        cout << "Entrada inválida. Por favor, digite novamente o curso do aluno: " << endl;
+        limpar_entrada();
+    }
+    return a.curso;
 }
 
 int main () 
