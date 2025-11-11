@@ -26,7 +26,7 @@ void static limpar_entrada ()
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
-Aluno cadastrar_data_nascimento(Aluno a)
+Data cadastrar_data_nascimento(Aluno a)
 {
     cout << "Digite a data de nascimento do aluno no formato: (DIA MÊS ANO): " << endl;
     while (1)
@@ -37,7 +37,7 @@ Aluno cadastrar_data_nascimento(Aluno a)
                 a.data_nascimento.mes >= 1 && a.data_nascimento.mes <= 12 &&
                 a.data_nascimento.ano > 1900 && a.data_nascimento.ano <= 2025)
             {
-                return a;
+                return a.data_nascimento;
             }
             else
             {
@@ -52,9 +52,28 @@ Aluno cadastrar_data_nascimento(Aluno a)
     }
 }
 
-Aluno cadastrar_aluno()
+Aluno cadastrar__nome_aluno(Aluno a)
 {
-
+    cout << "Digite o nome do aluno: " << endl;
+    if ((cin >> a.nome))
+    {
+        if (a.nome.size() > TAMANHO_MAX_NOME)
+        {
+            return a;
+        }
+        else
+        {
+            cout << "Por favor, digite um nome com até " << TAMANHO_MAX_NOME << " caracteres." << endl;
+            limpar_entrada();
+        }
+    }
+    else
+    {
+        cout << "Entrada inválida. Por favor, digite novamente o nome do aluno: " << endl;
+        limpar_entrada();
+    }
+    
+    return a;
 }
 
 int main () 
@@ -63,6 +82,6 @@ int main ()
 
     while (1)
     {
-        
+       
     }
 }
