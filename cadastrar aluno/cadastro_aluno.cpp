@@ -6,13 +6,15 @@ using namespace std;
 
 #define TAMANHO_MAX_NOME 70
 
-typedef struct {
+typedef struct
+{
     int dia;
     int mes;
     int ano;
 } Data;
 
-typedef struct {
+typedef struct
+{
     string nome;
     Data data_nascimento;
     string curso;
@@ -20,7 +22,7 @@ typedef struct {
     string email;
 } Aluno;
 
-void static limpar_entrada () 
+void static limpar_entrada()
 {
     cin.clear();
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -55,25 +57,28 @@ Data cadastrar_data_nascimento(Aluno a)
 string cadastrar_nome(Aluno a)
 {
     cout << "Digite o nome do aluno: " << endl;
-    if ((cin >> a.nome))
+    while (1)
     {
-        if (a.nome.size() > TAMANHO_MAX_NOME)
+        if ((cin >> a.nome))
         {
-            return a.nome;
+            if (a.nome.size() < TAMANHO_MAX_NOME)
+            {
+                limpar_entrada();
+                cout << a.nome << endl;
+                return a.nome;
+            }
+            else
+            {
+                cout << "Por favor, digite um nome com até " << TAMANHO_MAX_NOME << " caracteres." << endl;
+                limpar_entrada();
+            }
         }
         else
         {
-            cout << "Por favor, digite um nome com até " << TAMANHO_MAX_NOME << " caracteres." << endl;
+            cout << "Entrada inválida. Por favor, digite novamente o nome do aluno: " << endl;
             limpar_entrada();
         }
     }
-    else
-    {
-        cout << "Entrada inválida. Por favor, digite novamente o nome do aluno: " << endl;
-        limpar_entrada();
-    }
-    
-    return a.nome;
 }
 
 string cadastrar_curso(Aluno a)
@@ -129,13 +134,57 @@ string cadastrar_cpf(Aluno a)
     return a.cpf;
 }
 
-int main () 
+void static imprimir_header()
 {
-    cout << "Cadastro de Aluno" << endl;
+    cout << "-------- Sistema de Cadastro de Alunos --------" << endl;
+    cout << "1. Cadastrar novo aluno" << endl;
+    cout << "2. Imprimir resultados" << endl;
+    cout << "3. Sair" << endl;
+    cout << "Digite o número da opção que deseja escolher." << endl;
+}
+
+Aluno cadastrar_aluno(Aluno a)
+{
+    a.nome = cadastrar_nome(a);
+    a.data_nascimento = cadastrar_data_nascimento(a);
+    a.curso = cadastrar_curso(a);
+    a.email = cadastrar_email(a);
+    a.cpf = cadastrar_cpf(a);
+    cout << "Aluno cadastrado com sucesso!" << endl;
+    return a;
+}
+
+int main()
+{
     int escolha;
+    Aluno a;
+
     while (1)
     {
-        // loop de cadastro
-        // loop de verificacao
+        imprimir_header();
+        if (cin >> escolha)
+        {
+            switch (escolha)
+            {
+            case 1:
+                cout << "Opção de cadastrar novo aluno selecionada." << endl;
+                cadastrar_aluno(a);
+                break;
+            case 2:
+                cout << "Opção de imprimir resultados selecionada." << endl;
+                break;
+            case 3:
+                cout << "Desligando o sistema." << endl;
+                return 0;
+            default:
+                cout << "Opção inválida. Por favor, escolha uma opção válida." << endl;
+                break;
+            }
+        }
+        else
+        {
+            cout << "Entrada inválida. Por favor, digite um número correspondente à opção desejada." << endl;
+            limpar_entrada();
+        }
     }
 }
