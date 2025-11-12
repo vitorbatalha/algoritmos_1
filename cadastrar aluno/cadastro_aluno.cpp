@@ -321,7 +321,7 @@ int main()
 
                 break;
             case 3:
-                cout << AMARELO << "Desligando o sistema." << RESET << endl;
+                cout << AMARELO << "Encerrando o sistema de cadastro." << RESET << endl;
                 return 0;
             default:
                 cout << VERMELHO << "Opção inválida. Por favor, escolha uma opção válida." << RESET << endl;
