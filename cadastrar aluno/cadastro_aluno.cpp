@@ -8,6 +8,14 @@ using namespace std;
 
 #define TAMANHO_MAX_NOME 70
 
+const string RESET = "\033[0m";
+const string VERMELHO = "\033[31m";
+const string VERDE = "\033[32m";
+const string AMARELO = "\033[33m";
+const string AZUL = "\033[34m";
+const string MAGENTA = "\033[35m";
+const string CIANO = "\033[36m";
+
 typedef struct
 {
     int dia;
@@ -33,7 +41,7 @@ void static limpar_entrada()
 Data cadastrar_data_nascimento()
 {
     Data data;
-    cout << "Digite a data de nascimento do aluno no formato: (DIA MÊS ANO): " << endl;
+    cout << AMARELO << "Digite a data de nascimento do aluno no formato: (DIA MÊS ANO): " << RESET << endl;
     while (1)
     {
         if (cin >> data.dia >> data.mes >> data.ano)
@@ -46,12 +54,12 @@ Data cadastrar_data_nascimento()
             }
             else
             {
-                cout << "Data inválida. Por favor, digite novamente, no formato: (DIA MÊS ANO): ";
+                cout << VERMELHO << "Data inválida. Por favor, digite novamente, no formato: (DIA MÊS ANO): " << RESET;
             }
         }
         else
         {
-            cout << "Entrada inválida. Por favor, digite novamente, no formato: (DIA MÊS ANO): ";
+            cout << VERMELHO << "Entrada inválida. Por favor, digite novamente, no formato: (DIA MÊS ANO): " << RESET;
             limpar_entrada();
         }
     }
@@ -60,7 +68,7 @@ Data cadastrar_data_nascimento()
 string cadastrar_nome()
 {
     string nome;
-    cout << "Digite o nome do aluno: " << endl;
+    cout << AMARELO << "Digite o nome do aluno: " << RESET << endl;
     while (1)
     {
         getline(cin >> ws, nome);
@@ -70,7 +78,7 @@ string cadastrar_nome()
         }
         else
         {
-            cout << "Nome inválido. Por favor, digite novamente o nome do aluno: " << endl;
+            cout << VERMELHO << "Nome inválido. Por favor, digite novamente o nome do aluno: " << RESET << endl;
         }
     }
 }
@@ -78,7 +86,7 @@ string cadastrar_nome()
 string cadastrar_curso()
 {
     string curso;
-    cout << "Digite o nome do curso do aluno: " << endl;
+    cout << AMARELO << "Digite o nome do curso do aluno: " << RESET << endl;
     while (1)
     {
         getline(cin >> ws, curso);
@@ -88,7 +96,7 @@ string cadastrar_curso()
         }
         else
         {
-            cout << "Entrada inválida. Por favor, digite novamente o nome do curso do aluno: " << endl;
+            cout << VERMELHO << "Entrada inválida. Por favor, digite novamente o nome do curso do aluno: " << RESET << endl;
         }
     }
 }
@@ -96,7 +104,7 @@ string cadastrar_curso()
 string cadastrar_email()
 {
     string email;
-    cout << "Digite o email do aluno: " << endl;
+    cout << AMARELO << "Digite o email do aluno: " << RESET << endl;
     while (1)
     {
         getline(cin >> ws, email);
@@ -106,7 +114,7 @@ string cadastrar_email()
         }
         else
         {
-            cout << "Email inválido. Por favor, digite novamente o email do aluno: " << endl;
+            cout << VERMELHO << "Email inválido. Por favor, digite novamente o email do aluno: " << RESET << endl;
         }
     }
 }
@@ -167,7 +175,7 @@ bool validar_cpf(string cpf)
 string cadastrar_cpf()
 {
     string cpf;
-    cout << "Digite o CPF do aluno (somente números): " << endl;
+    cout << AMARELO << "Digite o CPF do aluno (somente números): " << RESET << endl;
     while (1)
     {
         getline(cin >> ws, cpf);
@@ -179,35 +187,35 @@ string cadastrar_cpf()
         }
         else
         {
-            cout << "CPF inválido (formato ou dígitos verificadores incorretos). "
-                << "Por favor, digite novamente (11 números): " << endl;
+            cout << VERMELHO << "CPF inválido (formato ou dígitos verificadores incorretos). "
+                << "Por favor, digite novamente (11 números): " << RESET << endl;
         }
     }
 }
 
 void static imprimir_header()
 {
-    cout << "-------- Sistema de Cadastro de Alunos --------" << endl
+    cout << AZUL << "-------------- Sistema de Cadastro de Alunos --------------" << RESET << endl
          << endl;
-    cout << "1. Cadastrar novo aluno" << endl;
-    cout << "2. Imprimir todos os alunos cadastrados" << endl;
-    cout << "3. Sair" << endl
+    cout << CIANO << "1. Cadastrar novo aluno" << RESET << endl;
+    cout << CIANO << "2. Imprimir todos os alunos cadastrados" << RESET << endl;
+    cout << CIANO << "3. Sair" << RESET << endl
          << endl;
-    cout << "Digite o número da opção que deseja escolher." << endl;
-    cout << "-----------------------------------------------" << endl;
+    cout << AMARELO << "Digite o número da opção que deseja escolher." << RESET << endl;
+    cout << AZUL << "-----------------------------------------------------------" << RESET << endl;
 }
 
 void static imprimir_aluno(Aluno a)
 {
-    cout << "---------------------- Dados do Aluno ---------------------" << endl;
-    cout << "Nome: " << a.nome << endl;
-    cout << "Data de Nascimento: " << setw(2) << setfill('0') << a.data_nascimento.dia << "/"
+    cout << AZUL << "---------------------- Dados do Aluno ---------------------" << RESET << endl;
+    cout << MAGENTA << "Nome: " << RESET << a.nome << endl;
+    cout << MAGENTA << "Data de Nascimento: " << RESET << setw(2) << setfill('0') << a.data_nascimento.dia << "/"
          << setw(2) << setfill('0') << a.data_nascimento.mes << "/"
          << a.data_nascimento.ano << endl;
-    cout << "Curso: " << a.curso << endl;
-    cout << "CPF: " << a.cpf << endl;
-    cout << "Email: " << a.email << endl;
-    cout << "-----------------------------------------------------------" << endl;
+    cout << MAGENTA << "Curso: " << RESET << a.curso << endl;
+    cout << MAGENTA << "CPF: " << RESET << a.cpf << endl;
+    cout << MAGENTA << "Email: " << RESET << a.email << endl;
+    cout << AZUL << "-----------------------------------------------------------" << RESET << endl;
 }
 
 Aluno cadastrar_aluno()
@@ -220,24 +228,24 @@ Aluno cadastrar_aluno()
     novo_aluno.email = cadastrar_email();
     novo_aluno.cpf = cadastrar_cpf();
 
-    cout << "Aluno cadastrado com sucesso!" << endl;
-    cout << "Verifique os dados cadastrados abaixo:" << endl;
+    cout << VERDE << "Aluno cadastrado com sucesso!" << RESET << endl;
+    cout << AMARELO << "Verifique os dados cadastrados abaixo:" << RESET << endl;
 
     imprimir_aluno(novo_aluno);
 
-    cout << "Deseja alterar algum dado?" << endl;
-    cout << "1. Alterar nome" << endl;
-    cout << "2. Alterar data de nascimento" << endl;
-    cout << "3. Alterar curso" << endl;
-    cout << "4. Alterar email" << endl;
-    cout << "5. Alterar CPF" << endl;
-    cout << "6. Nenhuma alteração, finalizar cadastro" << endl;
+    cout << AMARELO << "Deseja alterar algum dado?" << RESET << endl;
+    cout << CIANO << "1. Alterar nome" << RESET << endl;
+    cout << CIANO << "2. Alterar data de nascimento" << RESET << endl;
+    cout << CIANO << "3. Alterar curso" << RESET << endl;
+    cout << CIANO << "4. Alterar email" << RESET << endl;
+    cout << CIANO << "5. Alterar CPF" << RESET << endl;
+    cout << CIANO << "6. Nenhuma alteração, finalizar cadastro" << RESET << endl;
 
     int escolha;
 
     while (!(cin >> escolha))
     {
-        cout << "Entrada inválida. Por favor, digite um número (1-6): ";
+        cout << VERMELHO << "Entrada inválida. Por favor, digite um número (1-6): " << RESET;
         limpar_entrada();
     }
 
@@ -259,10 +267,10 @@ Aluno cadastrar_aluno()
         novo_aluno.cpf = cadastrar_cpf();
         break;
     case 6:
-        cout << "Cadastro finalizado." << endl;
+        cout << VERDE << "Cadastro finalizado." << RESET << endl;
         break;
     default:
-        cout << "Opção inválida. Finalizando cadastro sem alterações." << endl;
+        cout << VERMELHO << "Opção inválida. Finalizando cadastro sem alterações." << RESET << endl;
         break;
     }
 
@@ -285,44 +293,44 @@ int main()
             {
             case 1:
             {
-                cout << "Opção de cadastrar novo aluno selecionada." << endl;
+                cout << AMARELO << "Opção de cadastrar novo aluno selecionada." << RESET << endl;
 
                 Aluno aluno_novo = cadastrar_aluno();
                 lista_de_alunos.push_back(aluno_novo);
 
-                cout << "\nAluno adicionado à lista. Voltando ao menu principal." << endl;
+                cout << VERDE << "\nAluno adicionado à lista. Voltando ao menu principal." << RESET << endl;
                 break;
             }
             case 2:
-                cout << "Opção de imprimir resultados selecionada." << endl;
+                cout << AMARELO << "Opção de imprimir resultados selecionada." << RESET << endl;
 
                 if (lista_de_alunos.empty())
                 {
-                    cout << "Nenhum aluno cadastrado no sistema." << endl;
+                    cout << AMARELO << "Nenhum aluno cadastrado no sistema." << RESET << endl;
                 }
                 else
                 {
-                    cout << "\n---------- Imprimindo lista de " << lista_de_alunos.size() << " aluno(s) -----------" << endl;
+                    cout << AZUL << "\n------------- Imprimindo lista de " << lista_de_alunos.size() << " aluno(s) --------------" << RESET << endl;
 
                     for (const Aluno &aluno_da_lista : lista_de_alunos)
                     {
                         imprimir_aluno(aluno_da_lista);
                     }
-                    cout << "------------------- Fim da lista --------------------" << endl;
+                    cout << AZUL << "---------------------- Fim da lista -----------------------" << RESET << endl;
                 }
 
                 break;
             case 3:
-                cout << "Desligando o sistema." << endl;
+                cout << AMARELO << "Desligando o sistema." << RESET << endl;
                 return 0;
             default:
-                cout << "Opção inválida. Por favor, escolha uma opção válida." << endl;
+                cout << VERMELHO << "Opção inválida. Por favor, escolha uma opção válida." << RESET << endl;
                 break;
             }
         }
         else
         {
-            cout << "Entrada inválida. Por favor, digite um número correspondente à opção desejada." << endl;
+            cout << VERMELHO << "Entrada inválida. Por favor, digite um número correspondente à opção desejada." << RESET << endl;
             limpar_entrada();
         }
     }
