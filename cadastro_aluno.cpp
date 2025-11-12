@@ -16,7 +16,7 @@ typedef struct {
     string nome;
     Data data_nascimento;
     string curso;
-    int cpf;
+    string cpf;
     string email;
 } Aluno;
 
@@ -105,12 +105,37 @@ string cadastrar_email(Aluno a)
     }
     return a.email;
 }
+
+string cadastrar_cpf(Aluno a)
+{
+    cout << "Digite o CPF do aluno (somente números): " << endl;
+    if (cin >> a.cpf)
+    {
+        if (a.cpf.size() == 11)
+        {
+            return a.cpf;
+        }
+        else
+        {
+            cout << "CPF inválido. Por favor, digite um CPF com 11 dígitos." << endl;
+            limpar_entrada();
+        }
+    }
+    else
+    {
+        cout << "Entrada inválida. Por favor, digite novamente o CPF do aluno: " << endl;
+        limpar_entrada();
+    }
+    return a.cpf;
+}
+
 int main () 
 {
     cout << "Cadastro de Aluno" << endl;
-
+    int escolha;
     while (1)
     {
-       
+        // loop de cadastro
+        // loop de verificacao
     }
 }
