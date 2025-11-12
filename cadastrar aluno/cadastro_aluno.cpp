@@ -91,7 +91,7 @@ string cadastrar_curso(Aluno a)
 string cadastrar_email(Aluno a)
 {
     cout << "Digite o email do aluno: " << endl;
-    while(1)
+    while (1)
     {
         getline(cin >> ws, a.email);
         if (a.email.size() > 0 && a.email.find('@') != string::npos)
@@ -124,10 +124,12 @@ string cadastrar_cpf(Aluno a)
 
 void static imprimir_header()
 {
-    cout << "-------- Sistema de Cadastro de Alunos --------" << endl << endl;
+    cout << "-------- Sistema de Cadastro de Alunos --------" << endl
+         << endl;
     cout << "1. Cadastrar novo aluno" << endl;
     cout << "2. Imprimir resultados" << endl;
-    cout << "3. Sair" << endl << endl;
+    cout << "3. Sair" << endl
+         << endl;
     cout << "Digite o número da opção que deseja escolher." << endl;
     cout << "-----------------------------------------------" << endl;
 }
@@ -214,10 +216,13 @@ int main()
             case 2:
                 cout << "Opção de imprimir resultados selecionada." << endl;
                 imprimir_aluno(a);
+
                 cout << "Deseja continuar cadastrando alunos?" << endl;
                 char continuar;
+
                 cout << "Digite 's' para sim ou 'n' para não: ";
                 cin >> continuar;
+
                 if (continuar == 's' || continuar == 'S')
                 {
                     continue;
