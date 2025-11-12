@@ -59,24 +59,14 @@ string cadastrar_nome(Aluno a)
     cout << "Digite o nome do aluno: " << endl;
     while (1)
     {
-        if ((cin >> a.nome))
+        getline(cin >> ws, a.nome);
+        if (a.nome.length() > 0 && a.nome.length() <= TAMANHO_MAX_NOME)
         {
-            if (a.nome.size() < TAMANHO_MAX_NOME)
-            {
-                limpar_entrada();
-                cout << a.nome << endl;
-                return a.nome;
-            }
-            else
-            {
-                cout << "Por favor, digite um nome com até " << TAMANHO_MAX_NOME << " caracteres." << endl;
-                limpar_entrada();
-            }
+            return a.nome;
         }
         else
         {
-            cout << "Entrada inválida. Por favor, digite novamente o nome do aluno: " << endl;
-            limpar_entrada();
+            cout << "Nome inválido. Por favor, digite novamente o nome do aluno: " << endl;
         }
     }
 }
@@ -136,11 +126,12 @@ string cadastrar_cpf(Aluno a)
 
 void static imprimir_header()
 {
-    cout << "-------- Sistema de Cadastro de Alunos --------" << endl;
+    cout << "-------- Sistema de Cadastro de Alunos --------" << endl << endl;
     cout << "1. Cadastrar novo aluno" << endl;
     cout << "2. Imprimir resultados" << endl;
-    cout << "3. Sair" << endl;
+    cout << "3. Sair" << endl << endl;
     cout << "Digite o número da opção que deseja escolher." << endl;
+    cout << "-----------------------------------------------" << endl;
 }
 
 Aluno cadastrar_aluno(Aluno a)
